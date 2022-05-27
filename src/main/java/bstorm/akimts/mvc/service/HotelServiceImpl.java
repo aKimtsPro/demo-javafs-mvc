@@ -19,6 +19,7 @@ public class HotelServiceImpl implements HotelService {
         this.mapper = mapper;
     }
 
+    @Override
     public List<HotelDTO> getAll(){
         return repository.findAll().stream()
                 .map( mapper::toDto )
