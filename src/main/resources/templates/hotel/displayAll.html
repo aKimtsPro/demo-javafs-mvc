@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>tous les hotels</title>
+</head>
+<body>
+  <h2>Liste des hotels</h2>
+
+  <p>taille de la liste: <span th:text="${hotels.size}">5</span></p>
+
+  <ul>
+    <li th:each="hotel : ${hotels}" th:object="${hotel}">
+      <a th:text="*{nom}"  href="#" th:href="@{ /hotel/{id}/details (id=*{id}, param='value') }">le nom de mon hotel</a>
+    </li>
+  </ul>
+
+</body>
+</html>
