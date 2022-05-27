@@ -2,11 +2,14 @@ package bstorm.akimts.mvc.controller;
 
 import bstorm.akimts.mvc.models.dto.HotelDTO;
 import bstorm.akimts.mvc.models.form.HotelForm;
+import bstorm.akimts.mvc.models.form.HotelUpdateForm;
 import bstorm.akimts.mvc.service.HotelServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -42,12 +45,33 @@ public class HotelController {
 
     // POST http://localhost:8080/hotel/add
     @PostMapping("/add")
-    public String processCreate( @ModelAttribute("hotel") HotelForm form ){
+    public String processCreate(@Valid @ModelAttribute("hotel") HotelForm form, BindingResult binding){
 
-        if( false /* est invalide */)
-            ;// faire un truc
+        if( binding.hasErrors() )
+            return "hotel/insert";
 
         long id = service.insert(form);
+        return "redirect:/hotel/"+id+"/details";
+    }
+
+    // GET http://localhost:8080/hotel/{id}/update
+    @GetMapping("/{id}/update")
+    public String updateForm(
+            @PathVariable @ModelAttribute long id,
+            @ModelAttribute("hotel")HotelUpdateForm form
+    ){
+        HotelDTO dto = service.getOne(id);
+
+        form.setNom(dto.getNom());
+        form.setNbrEtoiles(dto.getNbrEtoiles());
+
+        return "hotel/update";
+    }
+
+    // POST http://localhost:8080/hotel/{id}/update
+    @PostMapping("/{id}/update")
+    public String processUpdate(@PathVariable long id, @ModelAttribute("hotel")HotelUpdateForm form){
+        service.update(id, form);
         return "redirect:/hotel/"+id+"/details";
     }
 }

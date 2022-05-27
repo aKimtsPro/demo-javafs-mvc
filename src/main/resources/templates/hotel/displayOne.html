@@ -4,16 +4,19 @@
   <meta charset="UTF-8">
   <title>Un hotel!!</title>
 </head>
-<body>
+<body th:object="${hotel}">
 
   <h2>Details: </h2>
 
-  <div th:object="${hotel}">
+  <div>
     <p>id: <span th:text="*{id}">5</span></p>
     <p>nom: <span th:text="*{nom}">nom de l'hotel</span></p>
     <p>adresse: <span th:text="*{adresse}">adresse de l'hotel</span></p>
     <p>nombre d'étoiles: <span th:text="*{nbrEtoiles}">5</span></p>
   </div>
+
+  <a th:href="@{ /hotel/{id}/update (id=*{id}) }">update</a>
+  <a th:href="@{ /hotel/all }">retour</a>
 
 </body>
 </html>

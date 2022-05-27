@@ -3,6 +3,7 @@ package bstorm.akimts.mvc.mapper;
 import bstorm.akimts.mvc.models.dto.HotelDTO;
 import bstorm.akimts.mvc.models.entity.Hotel;
 import bstorm.akimts.mvc.models.form.HotelForm;
+import bstorm.akimts.mvc.models.form.HotelUpdateForm;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -33,5 +34,6 @@ public class HotelMapper {
                 form.getNbrEtoiles()
         );
     }
+
 
 }

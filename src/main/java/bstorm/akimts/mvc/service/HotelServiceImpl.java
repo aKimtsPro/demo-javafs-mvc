@@ -4,6 +4,7 @@ import bstorm.akimts.mvc.mapper.HotelMapper;
 import bstorm.akimts.mvc.models.dto.HotelDTO;
 import bstorm.akimts.mvc.models.entity.Hotel;
 import bstorm.akimts.mvc.models.form.HotelForm;
+import bstorm.akimts.mvc.models.form.HotelUpdateForm;
 import bstorm.akimts.mvc.repository.HotelRepository;
 import org.springframework.stereotype.Service;
 
@@ -42,4 +43,14 @@ public class HotelServiceImpl implements HotelService {
         return entity.getId();
     }
 
+    @Override
+    public void update(long id, HotelUpdateForm form) {
+        Hotel hotel = repository.findById(id)
+                .orElseThrow();
+
+        hotel.setNom(form.getNom());
+        hotel.setNbrEtoiles(form.getNbrEtoiles());
+
+        repository.save(hotel);
+    }
 }

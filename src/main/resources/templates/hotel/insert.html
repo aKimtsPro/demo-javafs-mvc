@@ -29,9 +29,13 @@
         <option value="4">****</option>
         <option value="5">*****</option>
       </select>
+
+      <p th:if="${ #fields.hasErrors('nbrEtoiles') }" th:errors="*{nbrEtoiles}">il y a des erreurs</p>
+
     </div>
 
     <button type="submit">envoyer</button>
+    <button type="button"><a th:href="@{ /hotel/all }">annuler</a></button>
   </form>
 
 </body>
