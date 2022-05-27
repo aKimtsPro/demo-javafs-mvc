@@ -2,19 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Un hotel</title>
+  <title>Un hotel!!</title>
 </head>
 <body>
 
-  <h3>Exercice d'intro</h3>
+  <h2>Details: </h2>
 
-  <p>
-    Faites en sorte que dans cette page s'affiche
-    un hotel particulier dont l'id est défini
-    par la pathVariable id (voir controller)
-  </p>
-
-  <!--/* TODO: ecrire la page */-->
+  <div th:object="${hotel}">
+    <p>id: <span th:text="*{id}">5</span></p>
+    <p>nom: <span th:text="*{nom}">nom de l'hotel</span></p>
+    <p>adresse: <span th:text="*{adresse}">adresse de l'hotel</span></p>
+    <p>nombre d'étoiles: <span th:text="*{nbrEtoiles}">5</span></p>
+  </div>
 
 </body>
 </html>

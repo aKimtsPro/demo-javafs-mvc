@@ -1,12 +1,11 @@
 package bstorm.akimts.mvc.controller;
 
 import bstorm.akimts.mvc.models.dto.HotelDTO;
+import bstorm.akimts.mvc.models.form.HotelForm;
 import bstorm.akimts.mvc.service.HotelServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,6 +19,7 @@ public class HotelController {
         this.service = service;
     }
 
+    // GET http://localhost:8080/hotel/all
     @GetMapping("/all")
     public String displayAll(Model model){
         List<HotelDTO> hotels = service.getAll();
@@ -28,10 +28,26 @@ public class HotelController {
     }
 
     // GET http://localhost:8080/hotel/5/details
-    @GetMapping("{id}/details")
-    public String displayOne(@PathVariable int id){
-        // TODO: recuperer et ajouter attribut hotel
+    @GetMapping("/{id}/details")
+    public String displayOne(@PathVariable int id, Model model){
+        model.addAttribute("hotel",service.getOne(id));
         return "hotel/displayOne";
     }
 
+    // GET http://localhost:8080/hotel/add
+    @GetMapping("/add")
+    public String createForm( @ModelAttribute("hotel") HotelForm form ){
+        return "hotel/insert";
+    }
+
+    // POST http://localhost:8080/hotel/add
+    @PostMapping("/add")
+    public String processCreate( @ModelAttribute("hotel") HotelForm form ){
+
+        if( false /* est invalide */)
+            ;// faire un truc
+
+        long id = service.insert(form);
+        return "redirect:/hotel/"+id+"/details";
+    }
 }

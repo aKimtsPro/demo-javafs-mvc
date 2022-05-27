@@ -2,6 +2,7 @@ package bstorm.akimts.mvc.mapper;
 
 import bstorm.akimts.mvc.models.dto.HotelDTO;
 import bstorm.akimts.mvc.models.entity.Hotel;
+import bstorm.akimts.mvc.models.form.HotelForm;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +23,15 @@ public class HotelMapper {
     }
 
     // FORM -> ENTITY
+    public Hotel toEntity(HotelForm form){
+        if( form == null )
+            return null;
+
+        return new Hotel(
+                form.getNom(),
+                form.getAdresse(),
+                form.getNbrEtoiles()
+        );
+    }
 
 }

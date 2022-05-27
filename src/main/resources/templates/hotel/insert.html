@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+  <h2>Ajouter un hotel</h2>
+
+  <form action="#" th:action="@{ /hotel/add }" th:object="${hotel}" method="post">
+
+    <div>
+      <label for="hotel-input-nom">nom</label>
+      <input type="text" name="nom" id="hotel-input-nom" th:field="*{nom}">
+    </div>
+
+    <div>
+      <label for="hotel-input-adresse">adresse</label>
+      <input type="text" name="adresse" id="hotel-input-adresse" th:field="*{adresse}">
+    </div>
+
+    <div>
+      <label for="hotel-input-etoiles">nombres d'étoiles</label>
+      <select name="nbrEtoiles" id="hotel-input-etoiles" th:field="*{nbrEtoiles}">
+        <option value="1" selected>*</option>
+        <option value="2">**</option>
+        <option value="3">***</option>
+        <option value="4">****</option>
+        <option value="5">*****</option>
+      </select>
+    </div>
+
+    <button type="submit">envoyer</button>
+  </form>
+
+</body>
+</html>
