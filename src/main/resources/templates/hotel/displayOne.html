@@ -13,6 +13,16 @@
     <p>nom: <span th:text="*{nom}">nom de l'hotel</span></p>
     <p>adresse: <span th:text="*{adresse}">adresse de l'hotel</span></p>
     <p>nombre d'étoiles: <span th:text="*{nbrEtoiles}">5</span></p>
+
+    <div>
+      <h3>Les chambres</h3>
+      <ul>
+        <li th:each="chambre : *{chambres}" th:object="${chambre}">
+          <p> id: <th:block th:text="*{id}"></th:block> </p>
+          <p> nombre de lits: <th:block th:text="*{nbrLit}"></th:block> </p>
+        </li>
+      </ul>
+    </div>
   </div>
 
   <a th:href="@{ /hotel/{id}/update (id=*{id}) }">update</a>

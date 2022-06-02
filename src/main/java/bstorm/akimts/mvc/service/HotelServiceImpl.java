@@ -6,11 +6,17 @@ import bstorm.akimts.mvc.models.entity.Hotel;
 import bstorm.akimts.mvc.models.form.HotelForm;
 import bstorm.akimts.mvc.models.form.HotelUpdateForm;
 import bstorm.akimts.mvc.repository.HotelRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Profile;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Qualifier("impl")
+@Profile("prod")
+@Service("hs_impl")
 public class HotelServiceImpl implements HotelService {
 
 //    @Autowired

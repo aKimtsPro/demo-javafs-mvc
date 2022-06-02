@@ -3,7 +3,9 @@ package bstorm.akimts.mvc.controller;
 import bstorm.akimts.mvc.models.dto.HotelDTO;
 import bstorm.akimts.mvc.models.form.HotelForm;
 import bstorm.akimts.mvc.models.form.HotelUpdateForm;
+import bstorm.akimts.mvc.service.HotelService;
 import bstorm.akimts.mvc.service.HotelServiceImpl;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,9 +18,9 @@ import java.util.List;
 @RequestMapping("/hotel")
 public class HotelController {
 
-    private final HotelServiceImpl service;
+    private final HotelService service;
 
-    public HotelController(HotelServiceImpl service) {
+    public HotelController(@Qualifier("impl") HotelService service) {
         this.service = service;
     }
 

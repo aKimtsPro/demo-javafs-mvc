@@ -3,12 +3,18 @@ package bstorm.akimts.mvc.mapper;
 import bstorm.akimts.mvc.models.dto.HotelDTO;
 import bstorm.akimts.mvc.models.entity.Hotel;
 import bstorm.akimts.mvc.models.form.HotelForm;
-import bstorm.akimts.mvc.models.form.HotelUpdateForm;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 @Service
 public class HotelMapper {
+
+    private final ChambreMapper cMapper;
+
+    public HotelMapper(ChambreMapper cMapper) {
+        this.cMapper = cMapper;
+    }
 
     // ENTITY -> DTO
     public HotelDTO toDto(Hotel entity){
@@ -19,7 +25,10 @@ public class HotelMapper {
                 entity.getId(),
                 entity.getNom(),
                 entity.getAdresse(),
-                entity.getNbrEtoiles()
+                entity.getNbrEtoiles(),
+                entity.getChambres().stream()
+                        .map( cMapper::toDto )
+                        .toList()
         );
     }
 

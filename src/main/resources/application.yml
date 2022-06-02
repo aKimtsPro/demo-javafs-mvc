@@ -1,0 +1,12 @@
+spring:
+  profiles:
+    active: prod
+    admin:
+      enabled: false
+  datasource:
+    username: user
+    password: pass
+    url: jdbc:h2:mem:trucDB
+ma:
+  prop:
+    custom: "ma petite propriété :)"
