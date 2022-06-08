@@ -16,8 +16,25 @@
 
     <div>
       <h3>Les chambres</h3>
+<!-- /*     <th:block th:replace="~{ chambre/addForm :: form(*{id}) }"></th:block> */ -->
+
+      <form action="#"  th:action="@{ /hotel/add-room }" method="post" th:object="${roomForm}">
+
+        <div>
+          <label for="in-lit">nombre de lits:</label>
+          <input type="number" min="1" max="10" name="in-lit" id="in-lit" th:field="*{nbrLits}">
+        </div>
+
+        <p th:if="${ #fields.hasErrors('nbrLits') }" th:errors="*{nbrLits}">vous avez fait des erreurs</p>
+
+        <input type="hidden" name="in-hotel-id" th:field="*{hotelId}">
+
+        <button type="submit">envoyer</button>
+
+      </form>
+      
       <ul>
-        <li th:each="chambre : *{chambres}" th:object="${chambre}">
+        <li th:each="c : *{chambres}" th:object="${c}">
           <p> id: <th:block th:text="*{id}"></th:block> </p>
           <p> nombre de lits: <th:block th:text="*{nbrLit}"></th:block> </p>
         </li>

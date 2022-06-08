@@ -1,0 +1,14 @@
+
+
+<div th:fragment="form (hotelId)">
+
+  <form action="#" th:action="|/hotel/${hotelId}/add-room|" method="post" th:object="${chambre}">
+
+    <label for="in-lit">nombre de lits</label>
+    <input type="number" name="in-lit" id="in-lit" th:field="*{nbrLits}">
+    <button type="submit">envoyer</button>
+    <p th:if="${ #fields.hasErrors('nbrLits') }" th:errors="*{nbrLits}">il y a des erreurs</p>
+    <input type="hidden" name="in-hid" id="in-hid" th:field="*{hotelId}">
+
+  </form>
+</div>
