@@ -10,7 +10,7 @@ public class HotelForm {
 
     private String nom;
     private String adresse;
-    @Min(1) @Max(5)
+    @Min(1) @Max(value = 5, message = "mon message custom")
     private int nbrEtoiles;
 
 }

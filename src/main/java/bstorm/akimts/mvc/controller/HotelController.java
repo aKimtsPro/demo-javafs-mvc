@@ -1,10 +1,11 @@
 package bstorm.akimts.mvc.controller;
 
 import bstorm.akimts.mvc.models.dto.HotelDTO;
+import bstorm.akimts.mvc.models.form.ChambreInsertForm;
 import bstorm.akimts.mvc.models.form.HotelForm;
 import bstorm.akimts.mvc.models.form.HotelUpdateForm;
+import bstorm.akimts.mvc.service.ChambreService;
 import bstorm.akimts.mvc.service.HotelService;
-import bstorm.akimts.mvc.service.HotelServiceImpl;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,24 +19,31 @@ import java.util.List;
 @RequestMapping("/hotel")
 public class HotelController {
 
-    private final HotelService service;
+    private final HotelService hotelService;
+    private final ChambreService chambreService;
 
-    public HotelController(@Qualifier("impl") HotelService service) {
-        this.service = service;
+    public HotelController(@Qualifier("impl") HotelService service, ChambreService cService) {
+        this.hotelService = service;
+        this.chambreService = cService;
     }
 
     // GET http://localhost:8080/hotel/all
     @GetMapping("/all")
     public String displayAll(Model model){
-        List<HotelDTO> hotels = service.getAll();
+        List<HotelDTO> hotels = hotelService.getAll();
         model.addAttribute("hotels", hotels);
         return "hotel/displayAll";
     }
 
     // GET http://localhost:8080/hotel/5/details
     @GetMapping("/{id}/details")
-    public String displayOne(@PathVariable int id, Model model){
-        model.addAttribute("hotel",service.getOne(id));
+    public String displayOne(
+            @PathVariable long id,
+            Model model,
+            @ModelAttribute("roomForm") ChambreInsertForm form
+    ){
+        model.addAttribute("hotel", hotelService.getOne(id));
+        form.setHotelId(id);
         return "hotel/displayOne";
     }
 
@@ -52,7 +60,7 @@ public class HotelController {
         if( binding.hasErrors() )
             return "hotel/insert";
 
-        long id = service.insert(form);
+        long id = hotelService.insert(form);
         return "redirect:/hotel/"+id+"/details";
     }
 
@@ -62,7 +70,7 @@ public class HotelController {
             @PathVariable @ModelAttribute long id,
             @ModelAttribute("hotel")HotelUpdateForm form
     ){
-        HotelDTO dto = service.getOne(id);
+        HotelDTO dto = hotelService.getOne(id);
 
         form.setNom(dto.getNom());
         form.setNbrEtoiles(dto.getNbrEtoiles());
@@ -73,7 +81,23 @@ public class HotelController {
     // POST http://localhost:8080/hotel/{id}/update
     @PostMapping("/{id}/update")
     public String processUpdate(@PathVariable long id, @ModelAttribute("hotel")HotelUpdateForm form){
-        service.update(id, form);
+        hotelService.update(id, form);
         return "redirect:/hotel/"+id+"/details";
     }
+
+
+    @PostMapping("/add-room")
+    public String processAddRoom(
+            @Valid @ModelAttribute("roomForm") ChambreInsertForm form,
+            BindingResult binding,
+            Model model
+    ){
+
+        if( binding.hasErrors() )
+            return displayOne(form.getHotelId(), model, form);
+
+        chambreService.insert(form);
+        return "redirect:/hotel/"+form.getHotelId()+"/details";
+    }
+
 }
