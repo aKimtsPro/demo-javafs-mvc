@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>se connecter</title>
+</head>
+<body>
+
+  <h3>login</h3>
+
+  <form action="#" th:action="@{/login}" method="post" th:with="error=${#request.getParameter('error')}">
+
+    <p th:if="${ error != null && error }">erreur</p>
+    <div>
+      <label for="in-username">username</label>
+      <input type="text" id="in-username" name="username">
+    </div>
+
+    <div>
+      <label for="in-password">password</label>
+      <input type="password" id="in-password" name="password">
+    </div>
+
+    <button type="submit">se connecter</button>
+  </form>
+
+</body>
+</html>

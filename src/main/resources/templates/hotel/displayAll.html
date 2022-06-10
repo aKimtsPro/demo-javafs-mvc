@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <title>tous les hotels</title>
@@ -16,6 +16,7 @@
   </ul>
 
   <button><a th:href="@{ /hotel/add }">ajouter un hotel</a></button>
+  <button sec:authorize="isAuthenticated()"><a th:href="@{ /logout }">deconnexion</a></button>
 
 </body>
 </html>
