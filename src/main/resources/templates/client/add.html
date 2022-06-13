@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+  <form th:action="@{/client/register}" method="post" th:object="${form}">
+
+    <div>
+      <label for="in-username">username</label>
+      <input type="text" id="in-username" th:field="*{username}">
+      <p th:errors="*{username}"></p>
+    </div>
+
+    <div>
+      <label for="in-password">password</label>
+      <input type="password" id="in-password" th:field="*{password}">
+      <p th:errors="*{password}"></p>
+    </div>
+
+    <div>
+      <label for="in-datenaiss">date naissance</label>
+      <input type="date" id="in-datenaiss" th:field="*{dateNaissance}">
+      <p th:errors="*{dateNaissance}"></p>
+    </div>
+
+    <div>
+      <label for="in-satis">satisfaction</label>
+      <input type="text" id="in-satis" th:field="*{satisfaction}">
+      <p th:errors="*{satisfaction}"></p>
+    </div>
+
+    <div>
+      <label for="in-email">email</label>
+      <input type="text" id="in-email" th:field="*{email}">
+      <p th:errors="*{email}"></p>
+    </div>
+
+    <button type="submit">envoyer</button>
+
+  </form>
+
+</body>
+</html>

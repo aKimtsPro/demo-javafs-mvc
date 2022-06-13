@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+  <h3>Les clients</h3>
+
+  <ul>
+    <li th:each="client: ${list}" th:object="${client}">
+      <div>
+        <div>
+          <span> id </span>
+          <th:block th:text="*{id}"></th:block>
+        </div>
+        <div>
+          <span> username </span>
+          <th:block th:text="*{username}"></th:block>
+        </div>
+        <div>
+          <span> email </span>
+          <th:block th:text="*{email}"> </th:block>
+        </div>
+        <div>
+          <span> date de naissance </span>
+          <th:block th:text="*{dateNaissance}"></th:block>
+        </div>
+        <div>
+          <span> satisfaction </span>
+          <th:block th:text="*{satisfaction}" ></th:block>
+        </div>
+      </div>
+    </li>
+  </ul>
+
+</body>
+</html>

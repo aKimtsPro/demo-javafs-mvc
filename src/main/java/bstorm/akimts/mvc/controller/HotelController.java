@@ -35,8 +35,8 @@ public class HotelController {
         return "hotel/displayAll";
     }
 
-    // GET http://localhost:8080/hotel/5/details
-    @GetMapping("/{id}/details")
+    // GET http://localhost:8080/hotel/9/details
+    @GetMapping("/{id:[0-9]+}/details")
     public String displayOne(
             @PathVariable long id,
             Model model,
