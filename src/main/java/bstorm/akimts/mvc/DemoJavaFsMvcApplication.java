@@ -8,7 +8,6 @@ import java.util.UUID;
 
 @SpringBootApplication
 public class DemoJavaFsMvcApplication {
-
 	public static void main(String[] args) {
 		ApplicationContext ctxt = SpringApplication.run(DemoJavaFsMvcApplication.class, args);
 
