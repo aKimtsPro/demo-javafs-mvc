@@ -6,8 +6,9 @@
 </head>
 <body>
 
-  <form action="#" th:action="@{ /login }" method="post">
-
+  <h3>Se connecter</h3>
+  <form action="#" th:action="@{ /login }" method="post" th:with="error = ${#request.getParameter('error')}">
+    <p th:if="${error}">Le username/password sont incorrects</p>
     <div>
       <label for="in-username">username</label>
       <input type="text" id="in-username" name="username">

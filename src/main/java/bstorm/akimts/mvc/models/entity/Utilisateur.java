@@ -11,7 +11,7 @@ import java.util.Collection;
 @Entity
 @Getter @Setter
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Utilisateur implements UserDetails {
+public abstract class Utilisateur implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,11 +21,6 @@ public class Utilisateur implements UserDetails {
     private String username;
     private String password;
 
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
 
     @Override
     public boolean isAccountNonExpired() {

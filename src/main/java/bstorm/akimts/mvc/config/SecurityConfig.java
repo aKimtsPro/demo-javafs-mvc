@@ -51,8 +51,9 @@ public class SecurityConfig {
 //        return new InMemoryUserDetailsManager(users);
 //    }
 
+    // A partir de 2.7.X
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, UserDetailsService userDetailsService) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         // LES DROITS:
 
@@ -60,10 +61,12 @@ public class SecurityConfig {
         // - denyAll : personne
         // - authenticated : connecté
         // - anonymous : pas connecté
-        // - hasRole : possède le rôle particulier
+        // - hasRole : possède le rôle particulier (un rôle est une autorité commencant par ROLE_)
         // - hasAnyRole : possède au moins un des rôles mentionnés
         // - hasAuthority : possède l'authorité particulier
         // - hasAnyAuthorities : possède au moins une des authorités mentionnés
+
+        // - not(): methode avant un droit donnée pour un chemin pour obtenir l'opposé
 
 
         // ROLES POSSIBLES:
@@ -91,8 +94,8 @@ public class SecurityConfig {
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/hotel/add", "/hotel/{id:[0-9]+}/update").hasRole("MANAGER")
                 // je peux utiliser:
-                // - ?: joker pour 1 caractère
-                // - *: joker pour de 0 à N caractères
+                // - ? : joker pour 1 caractère
+                // - * : joker pour de 0 à N caractères
                 // - **: joker pour de 0 à N segments
                 // - {pathVar:regex}: pattern regex pour un segment
                 .mvcMatchers("/client/all").hasAuthority("ROLE_ADMIN")
@@ -100,18 +103,17 @@ public class SecurityConfig {
                 .mvcMatchers("/hotel/add-room").hasAnyRole("MANAGER", "ADMIN")
                 .mvcMatchers("/login", "/client/register").anonymous()
                 .antMatchers("/hotel/{id:[0-9]+}/details", "/client/info").authenticated()
+                .antMatchers("/space_not_for_managers_or_admins").not().hasAnyRole("MANAGER", "ADMIN")
                 .anyRequest().permitAll();
 
         http.formLogin()
                     .loginPage("/login")
                     .defaultSuccessUrl("/client/info")
                     .failureUrl("/login?error=true")
-                .and()
-                    .logout()
+            .and()
+                .logout()
+                    .logoutUrl("/logout")
                     .logoutSuccessUrl("/hotel/all");
-
-
-//        http.userDetailsService(userDetailsService);
 
         log.info("security config ended");
         return http.build();

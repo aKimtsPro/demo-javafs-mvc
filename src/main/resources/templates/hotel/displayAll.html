@@ -1,5 +1,7 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+>
 <head>
   <meta charset="UTF-8">
   <title>tous les hotels</title>
@@ -11,11 +13,13 @@
 
   <ul>
     <li th:each="hotel : ${hotels}" th:object="${hotel}">
-      <a th:text="*{nom}"  href="#" th:href="@{ /hotel/{id}/details (id=*{id}, param='value') }">le nom de mon hotel</a>
+      <a th:text="*{nom}"  href="#" th:href="@{ /hotel/{id}/details (id=*{id}, param='value') }" sec:authorize="isAuthenticated()">le nom de mon hotel</a>
+      <p th:text="*{nom}" sec:authorize="isAnonymous()">le nom de mon hotel</p>
     </li>
   </ul>
 
-  <button><a th:href="@{ /hotel/add }">ajouter un hotel</a></button>
+  <button sec:authorize="hasRole('MANAGER')"><a th:href="@{ /hotel/add }">ajouter un hotel</a></button>
 
 </body>
 </html>
+
